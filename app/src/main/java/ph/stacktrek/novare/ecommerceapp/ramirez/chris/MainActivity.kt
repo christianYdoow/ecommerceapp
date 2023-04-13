@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import ph.stacktrek.novare.ecommerceapp.ramirez.chris.adapter.ProductAdapter
 import ph.stacktrek.novare.ecommerceapp.ramirez.chris.adapter.SwipeCallback
 import ph.stacktrek.novare.ecommerceapp.ramirez.chris.dao.ProductDAO
+import ph.stacktrek.novare.ecommerceapp.ramirez.chris.dao.ProductDAOSQLLiteImplementation
 import ph.stacktrek.novare.ecommerceapp.ramirez.chris.dao.ProductDAOStubImplementation
 import ph.stacktrek.novare.ecommerceapp.ramirez.chris.databinding.ActivityMainBinding
 import ph.stacktrek.novare.ecommerceapp.ramirez.chris.databinding.DialogueAddProductBinding
@@ -23,9 +24,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var productAdapter: ProductAdapter
     private lateinit var productDAO:ProductDAO
     private lateinit var itemTouchHelper: ItemTouchHelper
-
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +45,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun loadProducts(){
-        productDAO=ProductDAOStubImplementation()
+        productDAO=ProductDAOSQLLiteImplementation(applicationContext)
         productAdapter = ProductAdapter(applicationContext,
             productDAO.getProducts())
 
@@ -77,8 +75,12 @@ class MainActivity : AppCompatActivity() {
                 setPositiveButton("ADD", DialogInterface.OnClickListener { dialog, id ->
                     val product = Product("")
                     product.name = dialogueAddProductBinding.productName.text.toString()
+                    product.description= dialogueAddProductBinding.productDescription.text.toString()
+                    product.price=dialogueAddProductBinding.productPrice.text.toString().toInt().toBigDecimal()
 
-                    val productDAO = ProductDAOStubImplementation()
+
+
+                    val productDAO = ProductDAOSQLLiteImplementation(applicationContext)
                     productDAO.addProduct(product)
                     productAdapter.addProduct(product)
                 })

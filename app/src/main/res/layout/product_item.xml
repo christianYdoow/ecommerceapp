@@ -15,19 +15,28 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            android:textAlignment="center"
+            android:layout_marginTop="@dimen/cardview_compat_inset_shadow"/>
 
         <View
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="60dp"
             android:layout_height="0dp"
-            android:layout_weight="3"/>
+            android:layout_weight="3"
+            android:background="@drawable/cat"
+            />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/view_product_button"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="View Details"/>
+            android:text="View Details"
+            android:background="@color/blue"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"/>
     </LinearLayout>
 
 

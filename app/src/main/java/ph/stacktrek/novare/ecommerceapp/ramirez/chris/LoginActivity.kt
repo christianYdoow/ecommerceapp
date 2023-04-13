@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
 import ph.stacktrek.novare.ecommerceapp.ramirez.chris.databinding.ActivityLoginBinding
+import ph.stacktrek.novare.ecommerceapp.ramirez.chris.utility.PreferenceUtility
 
 class LoginActivity : AppCompatActivity() {
 
@@ -51,7 +52,8 @@ class LoginActivity : AppCompatActivity() {
             var password = binding.passwordtext.text.toString()
 
 
-            if(username == "admin" && password == "admin" || username == registerUsernameData && password == registerPasswordData ) {
+            if(username == "admin" && password == "admin" ||
+                username == registerUsernameData && password == registerPasswordData ) {
                 val goToMain = Intent(
                     applicationContext,
                     MainActivity::class.java
@@ -63,6 +65,11 @@ class LoginActivity : AppCompatActivity() {
                 bundle.putString("bundle_username", username)
                 goToMain.putExtras(bundle)
 
+                PreferenceUtility(applicationContext).apply {
+                    saveStringPreferences("username", binding.usernametext.text.toString())
+                    saveStringPreferences("password", binding.passwordtext.text.toString())
+                }
+
                 startActivity(goToMain)
                 finish()
             }else{
@@ -70,6 +77,11 @@ class LoginActivity : AppCompatActivity() {
                     "Please provide admin/admin",
                     Snackbar.LENGTH_SHORT).show()
             }
+        }
+
+        PreferenceUtility(applicationContext).apply {
+            binding.usernametext.setText(getStringPreferences("username" ))
+            binding.passwordtext.setText(getStringPreferences("password" ))
         }
 
     }

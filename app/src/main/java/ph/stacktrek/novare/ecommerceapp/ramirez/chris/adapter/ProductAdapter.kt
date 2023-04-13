@@ -43,6 +43,7 @@ class ProductAdapter(private val context:Context,
         fun bindItems(product: Product){
             productItemBinding.productName.text = product.name
 
+
             productItemBinding.viewProductButton.setOnClickListener {
                 Toast.makeText(context, "${product.name}", Toast.LENGTH_SHORT).show()
             }
